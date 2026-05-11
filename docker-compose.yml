@@ -35,6 +35,13 @@ services:
     depends_on:
       - ctfd
 
+  api:
+    image: ghcr.io/hexcore-labs/lockdown-api:main
+    pull_policy: always
+    restart: unless-stopped
+    env_file:
+      - .env
+
   redis:
     image: redis:4
     restart: always
