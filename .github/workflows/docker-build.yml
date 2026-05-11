@@ -44,7 +44,8 @@ jobs:
           images: ghcr.io/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=main,enable=${{ github.ref == 'refs/heads/master' }}
-            type=raw,value=latest,enable=${{ github.event_name == 'release' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/master' || github.event_name == 'release' }}
+            type=sha,format=long,enable=${{ github.ref == 'refs/heads/master' }}
             type=semver,pattern={{version}},enable=${{ github.event_name == 'release' }}
 
       - name: Build and push
