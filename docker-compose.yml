@@ -1,6 +1,6 @@
 services:
   ctfd:
-    image: ghcr.io/hexcore-labs/ctfd:main
+    image: ghcr.io/hexcore-labs/ctfd:main@sha256:9067252588a8a18393790dc935a6d739ccd14d3e0c53eaf7c6a70b3a0a487367
     pull_policy: always
     restart: always
     env_file: .env
