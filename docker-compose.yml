@@ -1,6 +1,7 @@
 services:
   ctfd:
-    build: .
+    image: ghcr.io/hexcore-labs/ctfd:main
+    pull_policy: always
     restart: always
     env_file: .env
     environment:
@@ -9,7 +10,6 @@ services:
     volumes:
       - .data/CTFd/logs:/var/log/CTFd
       - .data/CTFd/uploads:/var/uploads
-      - .:/opt/CTFd:rw
     depends_on:
       permissions:
         condition: service_completed_successfully
