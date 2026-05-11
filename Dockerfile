@@ -15,11 +15,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-COPY . /opt/CTFd
-
+COPY requirements.txt requirements.in ./
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt && \
     pip install --no-cache-dir psycopg2 mysqlclient pymysql
+
+COPY . /opt/CTFd
 
 # --- Runtime Stage ---
 FROM python:3.11-slim-bookworm AS release
