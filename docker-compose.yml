@@ -30,8 +30,6 @@ services:
     restart: always
     volumes:
       - ./conf/nginx/http.conf:/etc/nginx/nginx.conf
-    ports:
-      - 80:80
     depends_on:
       - ctfd
 
@@ -39,8 +37,6 @@ services:
     image: ghcr.io/hexcore-labs/lockdown-api:main
     pull_policy: always
     restart: unless-stopped
-    ports:
-      - "${LOCKDOWN_PORT:-4000}:${PORT:-4000}"
     env_file:
       - .env
     environment:
