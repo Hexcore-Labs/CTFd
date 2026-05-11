@@ -39,8 +39,12 @@ services:
     image: ghcr.io/hexcore-labs/lockdown-api:main
     pull_policy: always
     restart: unless-stopped
+    ports:
+      - "${LOCKDOWN_PORT:-4000}:${PORT:-4000}"
     env_file:
       - .env
+    environment:
+      - CTFD_URL=http://ctfd:8000
 
   redis:
     image: redis:4
