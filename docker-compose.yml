@@ -33,7 +33,8 @@ services:
       - ctfd
 
   api:
-    image: ghcr.io/hexcore-labs/lockdown-api:main
+    # Built from agent-lockdown-web monorepo (packages/lockdown-api) → ghcr.io/hexcore-labs/lockdown-api
+    image: ghcr.io/hexcore-labs/lockdown-api:${LOCKDOWN_API_IMAGE_TAG:-development}
     pull_policy: always
     restart: unless-stopped
     env_file:
