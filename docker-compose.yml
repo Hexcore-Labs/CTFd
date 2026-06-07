@@ -9,20 +9,19 @@ services:
       - CACHE_TYPE=redis
     volumes:
       - .data/CTFd/logs:/var/log/CTFd
-      - .data/CTFd/uploads:/var/uploads
+      - uploads:/var/uploads
     depends_on:
       permissions:
         condition: service_completed_successfully
       redis:
         condition: service_started
 
-  # TODO: CTFd 4.0 Migrate to named volumes. Users will likely need to manually migrate existing files
   permissions:
     image: alpine:3.23
     user: root
     volumes:
       - .data/CTFd/logs:/var/log/CTFd
-      - .data/CTFd/uploads:/var/uploads
+      - uploads:/var/uploads
     command: chown -R 1001:1001 /var/uploads /var/log/CTFd
 
   nginx:
@@ -41,9 +40,20 @@ services:
       - .env
     environment:
       - CTFD_URL=http://ctfd:8000
+    volumes:
+      # Shared with ctfd when UPLOAD_PROVIDER=filesystem (local storage mode).
+      - uploads:/var/uploads
+      - snapshots:/data/snapshots
+    depends_on:
+      redis:
+        condition: service_started
 
   redis:
     image: redis:4
     restart: always
     volumes:
       - .data/redis:/data
+
+volumes:
+  uploads:
+  snapshots:
