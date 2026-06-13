@@ -10,7 +10,12 @@ def hash_password(plaintext):
 
 
 def verify_password(plaintext, ciphertext):
-    return bcrypt_sha256.verify(plaintext, ciphertext)
+    if not ciphertext:
+        return False
+    try:
+        return bcrypt_sha256.verify(plaintext, ciphertext)
+    except ValueError:
+        return False
 
 
 def sha256(p):

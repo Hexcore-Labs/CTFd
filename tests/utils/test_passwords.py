@@ -12,6 +12,15 @@ def test_verify_password():
     )
 
 
+def test_verify_password_rejects_empty_hash():
+    assert verify_password("password", "") is False
+    assert verify_password("password", None) is False
+
+
+def test_verify_password_rejects_invalid_hash():
+    assert verify_password("password", "not-a-valid-hash") is False
+
+
 def test_sha256():
     assert (
         sha256("asdf")
